@@ -1,4 +1,5 @@
 import argparse
+import json
 
 
 class ArgumentParser:
@@ -130,6 +131,25 @@ class ArgumentParser:
             required=True,
             help="The name of the experiment. All final results will be saved in this directory.",
         )
+        self.parser.add_argument(
+            "--library",
+            type=str,
+            default="openai",
+            help="The libary for the interference. Currently 'openai' and 'huggingface' is available",
+        )
+        self.parser.add_argument(
+            "--generation_kwargs",
+            type=json.loads,
+            default="None",
+            help="Arguments for the hugginface generation ",
+        )
+        self.parser.add_argument(
+            "--pipeline_kwargs",
+            type=json.loads,
+            default="None",
+            help="Arguments for the hugginface pipeline ",
+        )
+
 
     def check_text_column(self, args):
         if args.task == "nli" and len(args.text_column) < 2:
